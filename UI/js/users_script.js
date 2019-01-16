@@ -3,7 +3,7 @@ function Login(event){
     event.preventDefault();
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
-    fetch('http://127.0.0.1:5000/api/v1/auth/login', {
+    fetch('https://ireporter-challenge-4.herokuapp.com/api/v1/auth/login', {
       method:'POST',
       headers: {
         'Accept': 'application/json, text/plain, */*',
@@ -48,7 +48,7 @@ function Signup(e){
   let username = document.getElementById('username').value;
   let password = document.getElementById('password').value;
 
-  fetch('http://127.0.0.1:5000/api/v1/auth/signup', {
+  fetch('https://ireporter-challenge-4.herokuapp.com/api/v1/auth/signup', {
     method:'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
