@@ -73,7 +73,7 @@
           let Videos = document.getElementById('video').value;
 
           if (incident ==="Intervention"){
-            fetch('https://ireporter-challenge-4.herokuapp.com/api/v1/interventions', {
+            fetch('http://127.0.0.1:5000/api/v1/interventions', {
             method:'POST',
             headers: {
               'Accept': 'application/json, text/plain, */*',
@@ -101,7 +101,7 @@
             }
           })
           }else{
-            fetch('https://ireporter-challenge-4.herokuapp.com/api/v1/redflags', {
+            fetch('http://127.0.0.1:5000/api/v1/redflags', {
             method:'POST',
             headers: {
               'Accept': 'application/json, text/plain, */*',
