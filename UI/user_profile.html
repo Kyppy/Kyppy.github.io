@@ -13,7 +13,7 @@
       let user = sessionStorage.getItem('user')
       let token = sessionStorage.getItem('token');
       let bearer ='Bearer '+ token;
-      fetch(`http://127.0.0.1:5000/api/v1/session/${user}`, {
+      fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/session/${user}`, {
       method:'GET',
       headers: {
         'Authorization':bearer
@@ -60,7 +60,7 @@
   
   <script>
     let username = sessionStorage.getItem('user_profile')
-    fetch(`http://127.0.0.1:5000/api/v1/user/${username}`)
+    fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/user/${username}`)
     .then((res) => res.json())
     .then((data) => {
       let output = '<h2>User Details</h2>';
