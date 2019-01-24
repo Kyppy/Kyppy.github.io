@@ -8,23 +8,43 @@
   	<meta name="author" content="Kyppy Simani">
     <title>iReporter | User Profile</title>
     <link rel="stylesheet" href="./css/style.css">
+    <script type="text/javascript" src="js/users_script.js"></script>
+    <script>
+      let user = sessionStorage.getItem('user')
+      let token = sessionStorage.getItem('token');
+      let bearer ='Bearer '+ token;
+      fetch(`http://127.0.0.1:5000/api/v1/session/${user}`, {
+      method:'GET',
+      headers: {
+        'Authorization':bearer
+      }
+      })
+      .then((res) => {
+        if (res.ok){
+          return console.log("Authorized session")
+        } 
+        else{
+          window.location = "login.html"
+        }
+      })
+    </script>
   </head>
   <body>
 
   <header>
-      <div class="container">
-        <div id="branding">
-          <h1><span class="highlight_i">i</span><span class="highlight_rep">Reporter</span></h1>
-        </div>
-        <nav>
-          <ul>
-            <li><a href="user_home.html">Home</a></li>
-            <li><a href="create_post.html">Post</a></li>
-            <li class="current"><a href="user_profile.html">Profile</a></li>
-            <li><a href="index.html">Log Out</a></li>
-          </ul>
-        </nav>
+    <div class="container">
+      <div id="branding">
+        <h1><span class="highlight_i">i</span><span class="highlight_rep">Reporter</span></h1>
       </div>
+      <nav>
+        <ul>
+          <li><a href="user_home.html">Home</a></li>
+          <li><a href="create_post.html">Post</a></li>
+          <li class="current"><a id="profile-link" href="user_profile.html">Profile</a></li>
+          <li><a href="index.html" onclick="clearSession()">Log Out</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <section id="profile_pic">
@@ -36,7 +56,51 @@
     </div>
   </section>
 
-  <h2>Account Information</h2>
+  <section id="user-information"></section>
+  
+  <script>
+    let username = sessionStorage.getItem('user_profile')
+    fetch(`http://127.0.0.1:5000/api/v1/user/${username}`)
+    .then((res) => res.json())
+    .then((data) => {
+      let output = '<h2>User Details</h2>';
+      data.data.forEach(function(user){
+        output += `
+        <table id="user-info">
+          <tr>
+            <td>First Name:</td>
+            <td>${user.firstname}</td>
+          </tr>
+          <tr>
+            <td>Second Name:</td>
+            <td>${user.lastname}</td>
+          </tr>
+          <tr>
+            <td>Other Name:</td>
+            <td>${user.othername}</td>
+          </tr>
+          <tr>
+            <td>Email:</td>
+            <td>${user.email}</td>
+          </tr>
+          <tr>
+            <td>Contact Number:</td>
+            <td>(+254) ${user.phoneNumber}</td>
+          </tr>
+        </table>
+        <br>
+        `;
+      });
+      document.getElementById('user-information').innerHTML = output
+    })
+  </script>
+
+<script>
+    //Sets profile page to current user
+    document.getElementById('profile-link').addEventListener('click',defaultProfile);
+  </script>
+
+  <h2>Account Activity</h2>
   <table id="user_info">
     <tr>
         <td>Username:</td>
@@ -54,15 +118,6 @@
       <td>No. of Rejected records:</td>
       <td>3</td>
     </tr>
-    <tr>
-        <td>'Red-flag' Posts:</td>
-        <td>View Here</td>
-    </tr>
-    <tr>
-        <td>'Intervention' Posts:</td>
-        <td>View Here</td>
-    </tr>
-    
   </table>
   </body>
 </html>

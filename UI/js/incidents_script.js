@@ -4,7 +4,7 @@ function searchPost(event){
     let post_id = document.getElementById('post_id').value;
     let incident = document.getElementById('incident').value;
     if(incident ==="Intervention"){
-      fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/intervention/${post_id}`)
+      fetch(`http://127.0.0.1:5000/api/v1/intervention/${post_id}`)
       .then((res) => {
         if (res.ok){
           console.log(incident)
@@ -22,8 +22,8 @@ function searchPost(event){
           output += `
           <label>#:${user.id}</label>
           <label>Status: ${user.status}</label><br>
-          <label>Author: ${user.createdBy}</label><br>
-          <label>Incident Location: ${user.location}</label><br>
+          <a id="user-profile" href="user_profile.html" onClick="setProfile('${user.createdBy}')">Author: ${user.createdBy}</a><br>
+          <a id="incident-location" href="map.html" onClick="setCoordinate('${user.location}')">Incident Location: ${user.location}</a><br>
           <Label>Post Date: ${user.createdOn}</label><br>
           <p>${user.comment}</p>
           `;
@@ -36,7 +36,7 @@ function searchPost(event){
       })
     })  
     }else{
-      fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/redflag/${post_id}`)
+      fetch(`http://127.0.0.1:5000/api/v1/redflag/${post_id}`)
       .then((res) => {
         if (res.ok){
           return res.json()
@@ -53,8 +53,8 @@ function searchPost(event){
           output += `
           <label>#:${user.id}</label>
           <label>Status: ${user.status}</label><br>
-          <label>Author: ${user.createdBy}</label><br>
-          <label>Incident Location: ${user.location}</label><br>
+          <a id="user-profile" href="user_profile.html" onClick="setProfile('${user.createdBy}')">Author: ${user.createdBy}</a><br>
+          <a id="incident-location" href="map.html" onClick="setCoordinate('${user.location}')">Incident Location: ${user.location}</a><br>
           <Label>Post Date: ${user.createdOn}</label><br>
           <p>${user.comment}</p>
           `;
@@ -74,7 +74,7 @@ function deleteIntervention(post_id)
 {
     let token = sessionStorage.getItem('token')
     let bearer ='Bearer '+ token
-    fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/intervention/${post_id}`,{
+    fetch(`http://127.0.0.1:5000/api/v1/intervention/${post_id}`,{
     method: 'DELETE',
     headers: {
       'Authorization':bearer
@@ -101,7 +101,7 @@ function deleteRedflag(post_id)
 {
     let token = sessionStorage.getItem('token')
     let bearer ='Bearer '+ token
-    fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/redflag/${post_id}`,{
+    fetch(`http://127.0.0.1:5000/api/v1/redflag/${post_id}`,{
     method: 'DELETE',
     headers: {
       'Authorization':bearer
@@ -126,7 +126,7 @@ function deleteRedflag(post_id)
 //Change page to reveal edit Intervention comment section
 function editIntercomment_1(post_id)
 {
-  fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/intervention/${post_id}`)
+  fetch(`http://127.0.0.1:5000/api/v1/intervention/${post_id}`)
   .then((res) => {
     if (res.ok){
       return res.json()
@@ -168,7 +168,7 @@ function editIntercomment_2(post_id)
   let token = sessionStorage.getItem('token');
   let bearer ='Bearer '+ token;
   let comment = document.getElementById('edit_inter_comment').value;
-  fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/interventions/${post_id}/comment`,{
+  fetch(`http://127.0.0.1:5000/api/v1/interventions/${post_id}/comment`,{
       method:'PATCH',
       headers: {
         'Accept': 'application/json, text/plain, */*',
@@ -200,7 +200,7 @@ function editIntercomment_2(post_id)
 //Change page to reveal edit Intervention location section
 function editInterlocation_1(post_id)
 {
-  fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/intervention/${post_id}`)
+  fetch(`http://127.0.0.1:5000/api/v1/intervention/${post_id}`)
   .then((res) => {
     if (res.ok){
       return res.json()
@@ -242,7 +242,7 @@ function editInterlocation_2(post_id)
   let token = sessionStorage.getItem('token');
   let bearer ='Bearer '+ token;
   let location = document.getElementById('edit_inter_location').value;
-  fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/interventions/${post_id}/location`,{
+  fetch(`http://127.0.0.1:5000/api/v1/interventions/${post_id}/location`,{
       method:'PATCH',
       headers: {
         'Accept': 'application/json, text/plain, */*',
@@ -274,7 +274,7 @@ function editInterlocation_2(post_id)
  //Change page to edit Redflag comment section
  function editRedcomment_1(post_id)
  {
-   fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/redflag/${post_id}`)
+   fetch(`http://127.0.0.1:5000/api/v1/redflag/${post_id}`)
    .then((res) => {
      if (res.ok){
        return res.json()
@@ -316,7 +316,7 @@ function editInterlocation_2(post_id)
    let token = sessionStorage.getItem('token');
    let bearer ='Bearer '+ token;
    let comment = document.getElementById('edit_red_comment').value;
-   fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/redflags/${post_id}/comment`,{
+   fetch(`http://127.0.0.1:5000/api/v1/redflags/${post_id}/comment`,{
        method:'PATCH',
        headers: {
          'Accept': 'application/json, text/plain, */*',
@@ -348,7 +348,7 @@ function editInterlocation_2(post_id)
  //Change page to edit Redflag location section
  function editRedlocation_1(post_id)
  {
-   fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/redflag/${post_id}`)
+   fetch(`http://127.0.0.1:5000/api/v1/redflag/${post_id}`)
    .then((res) => {
      if (res.ok){
        return res.json()
@@ -390,7 +390,7 @@ function editInterlocation_2(post_id)
    let token = sessionStorage.getItem('token');
    let bearer ='Bearer '+ token;
    let location = document.getElementById('edit_red_location').value;
-   fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/redflags/${post_id}/location`,{
+   fetch(`http://127.0.0.1:5000/api/v1/redflags/${post_id}/location`,{
        method:'PATCH',
        headers: {
          'Accept': 'application/json, text/plain, */*',
@@ -424,7 +424,7 @@ function editInterlocation_2(post_id)
     let token = sessionStorage.getItem('token');
     let bearer ='Bearer '+ token;
     let status_update = document.getElementById(`inter_status${post_id}`).value;
-    fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/interventions/${post_id}/status`,{
+    fetch(`http://127.0.0.1:5000/api/v1/interventions/${post_id}/status`,{
       method:'PATCH',
       headers: {
           'Accept': 'application/json, text/plain, */*',
@@ -458,7 +458,7 @@ function editInterlocation_2(post_id)
     let token = sessionStorage.getItem('token');
     let bearer ='Bearer '+ token;
     let status_update = document.getElementById(`red_status${post_id}`).value;
-    fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/redflags/${post_id}/status`,{
+    fetch(`http://127.0.0.1:5000/api/v1/redflags/${post_id}/status`,{
       method:'PATCH',
       headers: {
           'Accept': 'application/json, text/plain, */*',
