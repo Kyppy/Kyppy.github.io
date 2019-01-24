@@ -14,7 +14,7 @@
       let user = sessionStorage.getItem('user')
       let token = sessionStorage.getItem('token');
       let bearer ='Bearer '+ token;
-      fetch(`http://127.0.0.1:5000/api/v1/session/${user}`, {
+      fetch(`https://ireporter-challenge-4.herokuapp.com/api/v1/session/${user}`, {
       method:'GET',
       headers: {
         'Authorization':bearer
@@ -79,7 +79,7 @@
 
   <script>
     //Post a list of all incidents on the user home page
-    fetch('http://127.0.0.1:5000/api/v1/interventions')
+    fetch('https://ireporter-challenge-4.herokuapp.com/api/v1/interventions')
     .then((res) => res.json())
     .then((data) => {
       let output = '<h2>Interventions</h2>';
@@ -104,7 +104,7 @@
       document.getElementById('interventions').innerHTML = output
     })
 
-    fetch('http://127.0.0.1:5000/api/v1/redflags')
+    fetch('https://ireporter-challenge-4.herokuapp.com/api/v1/redflags')
     .then((res) => res.json())
     .then((data) => {
       let output = '<h2>Redflags</h2>';
